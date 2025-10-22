@@ -7,6 +7,7 @@ const merger = new PDFMerger();
 async function main() {
 
     let folderPath = './';
+    let finalPdfName = 'merged';
 
     process.argv.forEach(function (val, index, array) {
         if (index == 2 && val) {
@@ -16,7 +17,10 @@ async function main() {
                 console.log('Directory does not exist for: ' + val);
             }
         }
-    });    
+        if (index == 3 && val) {
+            finalPdfName = val;
+        }
+    });
 
     fs.readdir(folderPath, (err, files) => {
         if (err) {
@@ -31,7 +35,7 @@ async function main() {
         if (pdfFiles.length > 0) {
             console.log('PDF files found in the folder:');
             pdfFiles.forEach(pdfFile => {
-                mergePdfFiles(pdfFile);
+                mergePdfFiles(pdfFile, finalPdfName);
             });
         } else {
             console.log('No PDF files found in the folder.');
@@ -39,13 +43,13 @@ async function main() {
     });
 }
 
-async function mergePdfFiles(pdfFile) {
+async function mergePdfFiles(pdfFile, finalPdfName) {
     try {
         // Add PDF files to merge
         await merger.add(pdfFile); // Replace with your first PDF path
 
         // Save the merged PDF to a new file
-        await merger.save('./merged.pdf'); // Specify your desired output path
+        await merger.save('./' + finalPdfName + '.pdf'); // Specify your desired output path
 
         console.log('PDFs merged successfully!');
     } catch (error) {

@@ -13,7 +13,6 @@
     "@types/node": "^24.9.1"
   },
   "dependencies": {
-    "pdf-merger-js": "^5.1.2",
-    "pdf-parse": "^2.4.5"
+    "pdf-merger-js": "^5.1.2"
   }
 }
